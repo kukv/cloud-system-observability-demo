@@ -1,0 +1,15 @@
+---
+services:
+  postgres:
+    extends:
+      service: "postgres"
+      file: "./docker/postgres.yaml"
+    networks:
+     - "observability-network"
+
+networks:
+  observability-network:
+    driver: "bridge"
+
+volumes:
+  postgres-data: null
