@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: "order-api"
+  threads:
+    virtual:
+      enabled: true
+  mvc:
+    problemdetails:
+      enabled: true
+  web:
+    resources:
+      add-mappings: false
+  devtools:
+    add-properties: false
+    livereload:
+      enabled: false
+    restart:
+      enabled: false
+    remote:
+      restart:
+        enabled: false
+  datasource:
+    url: "${DATASOURCE_URL}"
+    username: "${DATABASE_USERNAME}"
+    password: "${DATABASE_PASSWORD}"
+    driver-class-name: "org.postgresql.Driver"
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 100
+      connection-init-sql: "SELECT 1"
+
+server:
+  shutdown: "graceful"
+  compression:
+    enabled: true
+
+mybatis:
+  mapper-locations: "classpath*:/jp/kukv/order_api/infrastructure/datasource/**/*.xml"
+  type-handlers-package: "jp.kukv.order_api.infrastructure._configuration.mybatis.typehandler"
+  configuration:
+    map-underscore-to-camel-case: true
+
+management:
+  endpoints:
+    access:
+      default: "unrestricted"
+  endpoint:
+    health:
+      access: "unrestricted"
+      probes:
+        enabled: true
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+  packages-to-scan: "jp.kukv.order_api.presentation.endpoint"
+  paths-to-match: "/v1/**"
+
+external:
+  endpoint:
+    user-api:
+      domain: "${USER_API_DOMAIN}"
+      port: "${USER_API_PORT}"
+    product-api:
+      domain: "${PRODUCT_API_DOMAIN}"
+      port: "${PRODUCT_API_PORT}"

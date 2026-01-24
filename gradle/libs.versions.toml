@@ -1,0 +1,66 @@
+[versions]
+java = "25"
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version = { strictly = "4.0.2" } }
+spring-dependency-management = { id = "io.spring.dependency-management", version = { strictly = "1.1.7" } }
+springdoc-openapi = { id = "org.springdoc.openapi-gradle-plugin", version = { strictly = "1.9.0" } }
+jig = { id = "org.dddjava.jig-gradle-plugin", version = { strictly = "2025.12.1" } }
+spotless = { id = "com.diffplug.spotless", version = { strictly = "8.2.0" } }
+
+[libraries]
+#########################################
+# spring boot
+#########################################
+spring-boot-starter-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-stater-restclient = { module = "org.springframework.boot:spring-boot-starter-restclient" }
+
+spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
+spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+
+spring-boot-starter-webmvc-test = { module = "org.springframework.boot:spring-boot-starter-webmvc-test" }
+
+#########################################
+# O/R Mapper
+#########################################
+mybatis-spring-boot-starter = { module = "org.mybatis.spring.boot:mybatis-spring-boot-starter", version = { strictly = "4.0.1" } }
+postgresql-jdbc = { module = "org.postgresql:postgresql" }
+
+#########################################
+# validation library
+#########################################
+commons-validator = { module = "commons-validator:commons-validator", version = { strictly = "1.10.1" } }
+
+#########################################
+# docs generate
+#########################################
+springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version = { strictly = "3.0.1" } }
+
+#########################################
+# logging library
+#########################################
+logback-access-common = { module = "ch.qos.logback.access:logback-access-common", version = { strictly = "2.0.8" } }
+logback-access-tomcat = { module = "ch.qos.logback.access:logback-access-tomcat", version = { strictly = "2.0.8" } }
+
+[bundles]
+spring-boot-starter-api = [
+    "spring-boot-starter-webmvc",
+    "spring-boot-starter-validation",
+    "spring-boot-starter-actuator",
+
+    "springdoc-openapi-starter-webmvc-ui",
+
+    "logback-access-common",
+    "logback-access-tomcat"
+]
+
+spring-boot-starter-mybatis = [
+    "mybatis-spring-boot-starter",
+    "postgresql-jdbc"
+]
+
+spring-boot-starter-test = [
+    "spring-boot-starter-webmvc-test"
+]

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.kukv.order_api.infrastructure.datasource.CreateOrderMapper">
+  <resultMap id="id" type="jp.kukv.order_api.domain.model.Id">
+    <result column="id" property="value" />
+  </resultMap>
+
+  <select id="create" resultMap="id">
+    INSERT INTO orders.order_id (user_id, created_at)
+    VALUES (#{userId.value}, #{createdTime.value})
+    RETURNING id
+  </select>
+</mapper>

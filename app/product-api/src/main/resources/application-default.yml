@@ -1,0 +1,23 @@
+spring:
+  devtools:
+    add-properties: true
+    livereload:
+      enabled: true
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/observability_db?currentSchema=products"
+    username: "admin"
+    password: "admin123"
+
+server:
+  port: 8081
+
+logging:
+  level:
+    jp:
+      kukv: "debug"
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

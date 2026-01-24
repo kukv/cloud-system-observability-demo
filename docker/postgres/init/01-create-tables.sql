@@ -6,14 +6,6 @@ create table if not exists users.user_id (
     created_at  timestamp without time zone not null default current_timestamp
 );
 
-create table if not exists users.withdrawal (
-    id          serial                      not null primary key,
-    user_id     integer                     not null references users.user_id(id),
-    reason      text,                       -- 退会理由（任意）
-    created_at  timestamp without time zone not null default current_timestamp
-);
-create index idx_withdrawal_user_id on users.withdrawal(user_id);
-
 create table if not exists users.profile (
     id          serial                      not null primary key,
     user_id     integer                     not null references users.user_id(id),

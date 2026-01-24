@@ -1,29 +1,10 @@
 plugins {
-    java
-    id("org.springframework.boot") version "4.0.2"
-    id("io.spring.dependency-management") version "1.1.7"
+    alias(libs.plugins.spotless)
 }
 
-group = "jp.kukv"
-version = "0.0.1-SNAPSHOT"
-description = "cloud-system-observability-demo"
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
+spotless {
+    kotlinGradle {
+        target("**/*.gradle.kts")
+        ktlint()
     }
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
-    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }

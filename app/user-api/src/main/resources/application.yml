@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: "user-api"
+  threads:
+    virtual:
+      enabled: true
+  mvc:
+    problemdetails:
+      enabled: true
+  web:
+    resources:
+      add-mappings: false
+  devtools:
+    add-properties: false
+    livereload:
+      enabled: false
+    restart:
+      enabled: false
+    remote:
+      restart:
+        enabled: false
+  datasource:
+    url: "${DATASOURCE_URL}"
+    username: "${DATABASE_USERNAME}"
+    password: "${DATABASE_PASSWORD}"
+    driver-class-name: "org.postgresql.Driver"
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 100
+      connection-init-sql: "SELECT 1"
+
+server:
+  shutdown: "graceful"
+  compression:
+    enabled: true
+
+mybatis:
+  mapper-locations: "classpath*:/jp/kukv/user_api/infrastructure/datasource/**/*.xml"
+  type-handlers-package: "jp.kukv.user_api.infrastructure._configuration.mybatis.typehandler"
+  configuration:
+    map-underscore-to-camel-case: true
+
+management:
+  endpoints:
+    access:
+      default: "unrestricted"
+  endpoint:
+    health:
+      access: "unrestricted"
+      probes:
+        enabled: true
+
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+  packages-to-scan: "jp.kukv.user_api.presentation.endpoint"
+  paths-to-match: "/v1/**"
+

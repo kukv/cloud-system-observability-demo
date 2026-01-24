@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.kukv.user_api.infrastructure.datasource.contact.address.AddressRegisterDummyMapper">
+  <insert id="register">
+    insert into users.address (
+    user_id,
+    postal_code,
+    prefecture,
+    city,
+    address_line,
+    building_name,
+    building_number
+    )
+    values (
+    #{id.value},
+    #{address.postalCode.value},
+    #{address.prefecture.value},
+    #{address.city.value},
+    #{address.addressLine.value},
+    #{address.buildingName.value},
+    #{address.buildingNumber.value}
+    )
+  </insert>
+</mapper>

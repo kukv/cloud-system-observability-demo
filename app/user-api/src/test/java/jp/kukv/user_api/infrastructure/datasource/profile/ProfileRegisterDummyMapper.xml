@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.kukv.user_api.infrastructure.datasource.profile.ProfileRegisterDummyMapper">
+  <insert id="register">
+    insert into users.profile (user_id, first_name, last_name) values (#{id.value}, #{profile.firstName.value}, #{profile.lastName.value})
+  </insert>
+</mapper>

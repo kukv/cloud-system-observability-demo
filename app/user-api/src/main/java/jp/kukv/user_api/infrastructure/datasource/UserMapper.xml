@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.kukv.user_api.infrastructure.datasource.UserMapper">
+
+  <resultMap id="user" type="jp.kukv.user_api.domain.model.User">
+    <result column="first_name" property="profile.firstName.value" />
+    <result column="last_name" property="profile.lastName.value" />
+    <result column="mail_address" property="contact.mailAddress.value" />
+    <result column="phone_number" property="contact.phoneNumber.value" />
+    <result column="postal_code" property="contact.address.postalCode.value" />
+    <result column="prefecture" property="contact.address.prefecture.value" />
+    <result column="city" property="contact.address.city.value" />
+    <result column="address_line" property="contact.address.addressLine.value" />
+    <result column="building_name" property="contact.address.buildingName.value" />
+    <result column="building_number" property="contact.address.buildingNumber.value" />
+  </resultMap>
+
+  <select id="get" resultMap="user">
+    SELECT
+      latest_profile.first_name as first_name,
+      latest_profile.last_name as last_name,
+      latest_contact.mail_address as mail_address,
+      latest_contact.phone_number as phone_number,
+      latest_address.postal_code as postal_code,
+      latest_address.prefecture as prefecture,
+      latest_address.city as city,
+      latest_address.address_line as address_line,
+      latest_address.building_name as building_name,
+      latest_address.building_number as building_number
+    FROM users.user_id
+    INNER JOIN (
+      SELECT DISTINCT ON (user_id) *
+      FROM users.profile
+      ORDER BY user_id, created_at DESC
+    ) AS latest_profile ON users.user_id.id = latest_profile.user_id
+    INNER JOIN (
+      SELECT DISTINCT ON (user_id) *
+      FROM users.contact
+    ORDER BY user_id, created_at DESC
+    ) AS latest_contact ON users.user_id.id = latest_contact.user_id
+    INNER JOIN (
+      SELECT DISTINCT ON (user_id) *
+      FROM users.address
+      ORDER BY user_id, created_at DESC
+    ) AS latest_address ON users.user_id.id = latest_address.user_id
+    WHERE NOT EXISTS (
+      SELECT 1
+      FROM users.withdrawal
+      WHERE users.withdrawal.user_id = users.user_id.id
+    )
+    AND user_id.id = #{id.value}
+  </select>
+</mapper>
+

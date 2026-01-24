@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.kukv.order_api.infrastructure.datasource.ItemRegisterMapper">
+  <insert id="register">
+    INSERT INTO orders.item (order_id, product_id, unit_price, quantity, created_at)
+    VALUES (#{orderId.value}, #{item.productId.value}, #{item.unitPrice.value}, #{item.quantity.value}, #{createdTime.value})
+  </insert>
+</mapper>

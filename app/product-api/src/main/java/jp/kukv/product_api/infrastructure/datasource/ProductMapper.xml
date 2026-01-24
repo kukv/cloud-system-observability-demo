@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.kukv.product_api.infrastructure.datasource.ProductMapper">
+
+  <resultMap id="product" type="jp.kukv.product_api.domain.model.Product">
+    <result column="name" property="overview.name.value" />
+    <result column="description" property="overview.description.value" />
+    <result column="price" property="price.value" />
+    <result column="quantity" property="stock.value" />
+  </resultMap>
+
+  <select id="get" resultMap="product">
+    SELECT
+      latest_overview.name as name,
+      latest_overview.description as description,
+      latest_price.price as price,
+      latest_stock.quantity as quantity
+    FROM products.product_id
+    INNER JOIN (
+      SELECT DISTINCT ON (product_id) *
+      FROM products.overview
+      ORDER BY product_id, created_at DESC
+    ) AS latest_overview ON products.product_id.id = latest_overview.product_id
+    INNER JOIN (
+      SELECT DISTINCT ON (product_id) *
+      FROM products.price
+      ORDER BY product_id, created_at DESC
+    ) AS latest_price ON products.product_id.id = latest_price.product_id
+    INNER JOIN (
+      SELECT DISTINCT ON (product_id) *
+      FROM products.stock
+      ORDER BY product_id, created_at DESC
+    ) AS latest_stock ON products.product_id.id = latest_stock.product_id
+    WHERE product_id.id = #{id.value}
+  </select>
+</mapper>
