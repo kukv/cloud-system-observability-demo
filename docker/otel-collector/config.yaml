@@ -1,13 +1,17 @@
 ---
 receivers:
+  # otlp receiver
+  # https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver/otlpreceiver
   otlp:
     protocols:
       grpc:
         endpoint: "0.0.0.0:4317"
       http:
         endpoint: "0.0.0.0:4318"
+  # postgresql receiver
+  # https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/postgresqlreceiver
   postgresql:
-    endpoint: "postgres:5432"
+    endpoint: "${env:DB_HOST}:${env:DB_PORT}"
     transport: "tcp"
     username: "${env:DB_USER}"
     password: "${env:DB_PASSWORD}"
@@ -18,38 +22,60 @@ receivers:
       insecure: true
 
 processors:
+  # batch processor
+  # https://github.com/open-telemetry/opentelemetry-collector/tree/main/processor/batchprocessor
   batch:
     timeout: "10s"
     send_batch_size: 1024
+  # memory limiter processor
+  # https://github.com/open-telemetry/opentelemetry-collector/tree/main/processor/memorylimiterprocessor
   memory_limiter:
     check_interval: "1s"
     limit_mib: 512
+  # OpenTelemetry Collector 側で「受け取ったテレメトリ（trace/metric/log）に
+  # “リソース属性（Resource attributes）” を付与・上書きするための設定
   resource:
     attributes:
-     -
-      key: "environment"
-      value: "demo"
-      action: "insert"
+      - key: "service.namespace"
+        value: "cloud-system-observability-demo"
+        action: "upsert"
+      - key: "deployment.environment"
+        value: "local"
+        action: "upsert"
 
 exporters:
+  # prometheus remote write exporter
+  # https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/prometheusremotewriteexporter
   prometheusremotewrite:
     endpoint: "http://prometheus:9090/api/v1/write"
     tls:
       insecure: true
+  # prometheus exporter
+  # https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/prometheusexporter
   prometheus:
     endpoint: "0.0.0.0:8889"
-  otlphttp/loki:
+  # loki exporter
+  # https://github.com/open-telemetry/opentelemetry-collector/tree/main/exporter/otlphttpexporter
+  # https://grafana.com/docs/loki/latest/send-data/otel/otel-collector-getting-started/
+  otlp_http/loki:
     endpoint: "http://loki:3100/otlp"
     tls:
       insecure: true
+  # tempo exporter
+  # https://github.com/open-telemetry/opentelemetry-collector/tree/main/exporter/otlpexporter
+  # TODO: ちゃんとしたドキュメントが見当たらないので見つけ次第追加する
   otlp/tempo:
     endpoint: "tempo:4317"
     tls:
       insecure: true
+  # debug exporter
+  # https://github.com/open-telemetry/opentelemetry-collector/tree/main/exporter/debugexporter
   debug:
     verbosity: "detailed"
 
 service:
+  # pipelines
+  # https://opentelemetry.io/ja/docs/collector/configuration/#pipelines
   pipelines:
     traces:
       receivers:
@@ -81,7 +107,7 @@ service:
        - "batch"
        - "resource"
       exporters:
-       - "otlphttp/loki"
+       - "otlp_http/loki"
        - "debug"
   telemetry:
     logs:

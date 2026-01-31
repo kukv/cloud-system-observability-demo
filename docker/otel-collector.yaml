@@ -3,14 +3,16 @@ services:
   otel-collector:
     image: "otel/opentelemetry-collector-contrib:latest"
     environment:
+      DB_HOST: "${DB_HOST}"
+      DB_PORT: "${DB_PORT}"
       DB_USER: "${DB_USER}"
       DB_PASSWORD: "${DB_PASSWORD}"
       DB_NAME: "${DB_NAME}"
     command: [ "--config=/etc/otel-collector-config.yaml" ]
     ports:
-      - "4317:4317"
-      - "4318:4318"
-      - "8888:8888"
-      - "8889:8889"
+      - "4317:4317"   # OTLP gRPCレシーバー
+      - "4318:4318"   # OTLP httpレシーバー
+      - "8888:8888"   # コレクターのPrometheusメトリクス
+      - "8889:8889"   # Prometheusエクスポーターのメトリクス
     volumes:
       - "./otel-collector/config.yaml:/etc/otel-collector-config.yaml"

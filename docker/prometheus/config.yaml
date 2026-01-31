@@ -1,18 +1,24 @@
 ---
 global:
   scrape_interval: "15s"
+  scrape_timeout: "10s"
   evaluation_interval: "15s"
   external_labels:
     cluster: "observability-demo"
-    replica: "prometheus-1"
+    replica: "prometheus-primary"
 
 scrape_configs:
   - job_name: "prometheus"
     static_configs:
       - targets:
-          - "localhost:9090"
-  - job_name: "otel-collector"
+          - "prometheus:9090"
+
+  - job_name: "otel-collector-internal"
     static_configs:
       - targets:
           - "otel-collector:8888"
+
+  - job_name: "otel-collector-metrics"
+    static_configs:
+      - targets:
           - "otel-collector:8889"

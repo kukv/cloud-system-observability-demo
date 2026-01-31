@@ -1,12 +1,12 @@
 ---
 apiVersion: 1
+
 providers:
- -
-  name: "Default"
-  orgId: 1
-  folder: "Observability Demo"
-  type: "file"
-  disableDeletion: false
-  editable: true
-  options:
-    path: "/etc/grafana/provisioning/dashboards/json"
+ - name: "Default"
+   orgId: 1
+   folder: "Observability Demo"
+   type: "file"
+   disableDeletion: false
+   editable: true
+   options:
+     path: "/etc/grafana/provisioning/dashboards/json"
