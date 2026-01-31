@@ -1,0 +1,66 @@
+---
+x-app-context: &app-context
+  context: "../"
+  dockerfile: "./docker/app/Dockerfile"
+
+x-app-env: &app-env
+  SPRING_PROFILES_ACTIVE: "docker"
+  DATASOURCE_URL: "jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}"
+  DATASOURCE_USERNAME: "${DB_USER}"
+  DATASOURCE_PASSWORD: "${DB_PASSWORD}"
+
+x-app-healthcheck: &app-healthcheck
+  test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health/readiness"]
+  interval: 10s
+  timeout: 5s
+  retries: 3
+
+services:
+  user-api:
+    build:
+      <<: *app-context
+      target: "user-api"
+      cache_from:
+        - "type=local,src=/tmp/.buildx-cache-user"
+      cache_to:
+        - "type=local,dest=/tmp/.buildx-cache-user-new,mode=max"
+    environment:
+      <<: *app-env
+    ports:
+      - "8081:8080"
+    healthcheck:
+      <<: *app-healthcheck
+
+  product-api:
+    build:
+      <<: *app-context
+      target: "product-api"
+      cache_from:
+        - "type=local,src=/tmp/.buildx-cache-product"
+      cache_to:
+        - "type=local,dest=/tmp/.buildx-cache-product-new,mode=max"
+    environment:
+      <<: *app-env
+    ports:
+      - "8083:8080"
+    healthcheck:
+      <<: *app-healthcheck
+
+  order-api:
+    build:
+      <<: *app-context
+      target: "order-api"
+      cache_from:
+        - "type=local,src=/tmp/.buildx-cache-order"
+      cache_to:
+        - "type=local,dest=/tmp/.buildx-cache-order-new,mode=max"
+    environment:
+      <<: *app-env
+      USER_API_DOMAIN: "user-api"
+      USER_API_PORT: "8080"
+      PRODUCT_API_DOMAIN: "product-api"
+      PRODUCT_API_PORT: "8080"
+    ports:
+      - "8082:8080"
+    healthcheck:
+      <<: *app-healthcheck

@@ -43,12 +43,7 @@
       FROM users.address
       ORDER BY user_id, created_at DESC
     ) AS latest_address ON users.user_id.id = latest_address.user_id
-    WHERE NOT EXISTS (
-      SELECT 1
-      FROM users.withdrawal
-      WHERE users.withdrawal.user_id = users.user_id.id
-    )
-    AND user_id.id = #{id.value}
+    WHERE user_id.id = #{id.value}
   </select>
 </mapper>
 

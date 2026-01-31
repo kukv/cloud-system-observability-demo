@@ -1,0 +1,35 @@
+# ビルド成果物
+build
+.gradle
+**/build
+**/.gradle
+
+# IDE設定
+.idea
+*.iml
+*.ipr
+*.iws
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# ドキュメント
+*.md
+LICENSE
+
+# 環境変数
+.env
+.env.local
+
+# ログ
+*.log
+
+# OS固有
+.DS_Store
+Thumbs.db
+
+# 一時ファイル
+tmp
+temp

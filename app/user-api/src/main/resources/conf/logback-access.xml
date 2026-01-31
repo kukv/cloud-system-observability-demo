@@ -16,4 +16,3 @@
     <appender-ref ref="STDOUT" />
     <appender-ref ref="STDOUT-FULL" />
 </configuration>
-

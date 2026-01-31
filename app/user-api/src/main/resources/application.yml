@@ -21,8 +21,8 @@ spring:
         enabled: false
   datasource:
     url: "${DATASOURCE_URL}"
-    username: "${DATABASE_USERNAME}"
-    password: "${DATABASE_PASSWORD}"
+    username: "${DATASOURCE_USERNAME}"
+    password: "${DATASOURCE_PASSWORD}"
     driver-class-name: "org.postgresql.Driver"
     hikari:
       minimum-idle: 10
@@ -58,4 +58,3 @@ springdoc:
     enabled: false
   packages-to-scan: "jp.kukv.user_api.presentation.endpoint"
   paths-to-match: "/v1/**"
-

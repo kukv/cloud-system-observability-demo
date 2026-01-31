@@ -7,6 +7,40 @@ services:
     networks:
      - "observability-network"
 
+  user-api:
+    extends:
+      service: "user-api"
+      file: "./docker/app.yaml"
+    networks:
+      - "observability-network"
+    depends_on:
+      postgres:
+        condition: "service_healthy"
+
+  product-api:
+    extends:
+      service: "product-api"
+      file: "./docker/app.yaml"
+    networks:
+      - "observability-network"
+    depends_on:
+      postgres:
+        condition: "service_healthy"
+
+  order-api:
+    extends:
+      service: "order-api"
+      file: "./docker/app.yaml"
+    networks:
+      - "observability-network"
+    depends_on:
+      postgres:
+        condition: "service_healthy"
+      user-api:
+        condition: "service_healthy"
+      product-api:
+        condition: "service_healthy"
+
 networks:
   observability-network:
     driver: "bridge"
