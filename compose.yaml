@@ -16,6 +16,8 @@ services:
     depends_on:
       postgres:
         condition: "service_healthy"
+      otel-collector:
+        condition: "service_started"
 
   product-api:
     extends:
@@ -26,6 +28,8 @@ services:
     depends_on:
       postgres:
         condition: "service_healthy"
+      otel-collector:
+        condition: "service_started"
 
   order-api:
     extends:
@@ -40,6 +44,57 @@ services:
         condition: "service_healthy"
       product-api:
         condition: "service_healthy"
+      otel-collector:
+        condition: "service_started"
+
+  otel-collector:
+    extends:
+      service: "otel-collector"
+      file: "./docker/otel-collector.yaml"
+    networks:
+      - "observability-network"
+    depends_on:
+      prometheus:
+        condition: "service_started"
+      loki:
+        condition: "service_started"
+      tempo:
+        condition: "service_started"
+
+  prometheus:
+    extends:
+      service: "prometheus"
+      file: "./docker/prometheus.yaml"
+    networks:
+      - "observability-network"
+
+  loki:
+    extends:
+      service: "loki"
+      file: "./docker/loki.yaml"
+    networks:
+      - "observability-network"
+
+  tempo:
+    extends:
+      service: "tempo"
+      file: "./docker/tempo.yaml"
+    networks:
+      - "observability-network"
+
+  grafana:
+    extends:
+      service: "grafana"
+      file: "./docker/grafana.yaml"
+    networks:
+      - "observability-network"
+    depends_on:
+      prometheus:
+        condition: "service_started"
+      loki:
+        condition: "service_started"
+      tempo:
+        condition: "service_started"
 
 networks:
   observability-network:
@@ -47,3 +102,7 @@ networks:
 
 volumes:
   postgres-data: null
+  prometheus-data: null
+  loki-data: null
+  tempo-data: null
+  grafana-data: null

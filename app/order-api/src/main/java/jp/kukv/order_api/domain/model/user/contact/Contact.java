@@ -5,9 +5,11 @@ import jp.kukv.order_api.domain.model.user.contact.address.Address;
 
 public class Contact {
 
-  @JsonProperty MailAddress mailAddress;
+  @JsonProperty("mail_address")
+  MailAddress mailAddress;
 
-  @JsonProperty PhoneNumber phoneNumber;
+  @JsonProperty("phone_number")
+  PhoneNumber phoneNumber;
 
   @JsonProperty Address address;
 

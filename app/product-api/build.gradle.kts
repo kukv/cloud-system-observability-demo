@@ -12,8 +12,13 @@ group = "jp.kukv"
 version = "0.0.1"
 
 dependencies {
+    implementation(platform(libs.opentelemetry.bom))
+    implementation(platform(libs.opentelemetry.instrumentation.bom))
+
     implementation(libs.bundles.spring.boot.starter.api)
     implementation(libs.bundles.spring.boot.starter.mybatis)
+
+    implementation(libs.bundles.spring.boot.starter.opentelemetry)
 
     developmentOnly(libs.spring.boot.devtools)
     annotationProcessor(libs.spring.boot.configuration.processor)

@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Profile {
 
-  @JsonProperty FirstName firstName;
+  @JsonProperty("first_name")
+  FirstName firstName;
 
-  @JsonProperty LastName lastName;
+  @JsonProperty("last_name")
+  LastName lastName;
 
   Profile(FirstName firstName, LastName lastName) {
     this.firstName = firstName;

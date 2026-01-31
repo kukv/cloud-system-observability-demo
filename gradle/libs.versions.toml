@@ -43,6 +43,17 @@ springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openap
 #########################################
 logback-access-common = { module = "ch.qos.logback.access:logback-access-common", version = { strictly = "2.0.9" } }
 logback-access-tomcat = { module = "ch.qos.logback.access:logback-access-tomcat", version = { strictly = "2.0.9" } }
+#########################################
+# opentelemetry
+#########################################
+opentelemetry-bom = { module = "io.opentelemetry:opentelemetry-bom", version = { strictly = "1.58.0" } }
+opentelemetry-instrumentation-bom = { module = "io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom-alpha", version = { strictly = "2.24.0-alpha" } }
+
+opentelemetry-api = { module = "io.opentelemetry:opentelemetry-api" }
+opentelemetry-sdk = { module = "io.opentelemetry:opentelemetry-sdk" }
+opentelemetry-spring-boot-starter = { module = "io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter" }
+opentelemetry-exporter-otlp = { module = "io.opentelemetry:opentelemetry-exporter-otlp" }
+opentelemetry-logback-appender = { module = "io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0" }
 
 [bundles]
 spring-boot-starter-api = [
@@ -59,6 +70,14 @@ spring-boot-starter-api = [
 spring-boot-starter-mybatis = [
     "mybatis-spring-boot-starter",
     "postgresql-jdbc"
+]
+
+spring-boot-starter-opentelemetry = [
+    "opentelemetry-api",
+    "opentelemetry-sdk",
+    "opentelemetry-spring-boot-starter",
+    "opentelemetry-exporter-otlp",
+    "opentelemetry-logback-appender"
 ]
 
 spring-boot-starter-test = [

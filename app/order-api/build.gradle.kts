@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
 plugins {
     java
     jacoco
@@ -12,9 +14,15 @@ group = "jp.kukv"
 version = "0.0.1"
 
 dependencies {
+    implementation(platform(SpringBootPlugin.BOM_COORDINATES))
+    implementation(platform(libs.opentelemetry.bom))
+    implementation(platform(libs.opentelemetry.instrumentation.bom))
+
     implementation(libs.bundles.spring.boot.starter.api)
     implementation(libs.spring.boot.stater.restclient)
     implementation(libs.bundles.spring.boot.starter.mybatis)
+
+    implementation(libs.bundles.spring.boot.starter.opentelemetry)
 
     developmentOnly(libs.spring.boot.devtools)
     annotationProcessor(libs.spring.boot.configuration.processor)

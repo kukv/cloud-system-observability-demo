@@ -42,13 +42,33 @@ mybatis:
 
 management:
   endpoints:
-    access:
-      default: "unrestricted"
-  endpoint:
-    health:
-      access: "unrestricted"
-      probes:
+    web:
+      exposure:
+        include: "health,info,metrics,prometheus"
+  metrics:
+    tags:
+      application: "${spring.application.name}"
+  tracing:
+    sampling:
+      probability: 1.0
+  prometheus:
+    metrics:
+      export:
         enabled: true
+  otlp:
+    tracing:
+      endpoint: "${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/traces"
+    metrics:
+      endpoint: "${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/metrics"
+    logs:
+      endpoint: "${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/logs"
+otel:
+  exporter:
+    otlp:
+      endpoint: "${OTEL_EXPORTER_OTLP_ENDPOINT}"
+  resource:
+    attributes:
+      service.name: "${spring.application.name}"
 
 
 springdoc:

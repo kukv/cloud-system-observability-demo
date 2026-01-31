@@ -4,17 +4,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Address {
 
-  @JsonProperty PostalCode postalCode;
+  @JsonProperty("postal_code")
+  PostalCode postalCode;
 
   @JsonProperty Prefecture prefecture;
 
   @JsonProperty City city;
 
-  @JsonProperty AddressLine addressLine;
+  @JsonProperty("address_line")
+  AddressLine addressLine;
 
-  @JsonProperty BuildingName buildingName = new BuildingName("");
+  @JsonProperty("building_name")
+  BuildingName buildingName = new BuildingName("");
 
-  @JsonProperty BuildingNumber buildingNumber = new BuildingNumber("");
+  @JsonProperty("building_number")
+  BuildingNumber buildingNumber = new BuildingNumber("");
 
   Address(
       PostalCode postalCode,

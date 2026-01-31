@@ -1,0 +1,10 @@
+---
+services:
+  loki:
+    image: "grafana/loki:latest"
+    command: [ "-config.file=/etc/loki/loki-config.yaml" ]
+    ports:
+      - "3100:3100"
+    volumes:
+      - "./loki/config.yaml:/etc/loki/loki-config.yaml"
+      - "loki-data:/loki"

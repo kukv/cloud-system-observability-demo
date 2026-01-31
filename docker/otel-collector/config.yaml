@@ -1,0 +1,90 @@
+---
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: "0.0.0.0:4317"
+      http:
+        endpoint: "0.0.0.0:4318"
+  postgresql:
+    endpoint: "postgres:5432"
+    transport: "tcp"
+    username: "${env:DB_USER}"
+    password: "${env:DB_PASSWORD}"
+    databases:
+      - "${env:DB_NAME}"
+    collection_interval: "10s"
+    tls:
+      insecure: true
+
+processors:
+  batch:
+    timeout: "10s"
+    send_batch_size: 1024
+  memory_limiter:
+    check_interval: "1s"
+    limit_mib: 512
+  resource:
+    attributes:
+     -
+      key: "environment"
+      value: "demo"
+      action: "insert"
+
+exporters:
+  prometheusremotewrite:
+    endpoint: "http://prometheus:9090/api/v1/write"
+    tls:
+      insecure: true
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+  otlphttp/loki:
+    endpoint: "http://loki:3100/otlp"
+    tls:
+      insecure: true
+  otlp/tempo:
+    endpoint: "tempo:4317"
+    tls:
+      insecure: true
+  debug:
+    verbosity: "detailed"
+
+service:
+  pipelines:
+    traces:
+      receivers:
+       - "otlp"
+      processors:
+       - "memory_limiter"
+       - "batch"
+       - "resource"
+      exporters:
+       - "otlp/tempo"
+       - "debug"
+    metrics:
+      receivers:
+       - "otlp"
+       - "postgresql"
+      processors:
+       - "memory_limiter"
+       - "batch"
+       - "resource"
+      exporters:
+       - "prometheusremotewrite"
+       - "prometheus"
+       - "debug"
+    logs:
+      receivers:
+       - "otlp"
+      processors:
+       - "memory_limiter"
+       - "batch"
+       - "resource"
+      exporters:
+       - "otlphttp/loki"
+       - "debug"
+  telemetry:
+    logs:
+      level: "info"
+    metrics:
+      level: "detailed"
