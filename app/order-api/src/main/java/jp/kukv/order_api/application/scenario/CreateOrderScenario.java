@@ -12,15 +12,11 @@ import jp.kukv.order_api.domain.model.user.User;
 import jp.kukv.order_api.domain.model.user.UserId;
 import jp.kukv.order_api.domain.model.user.contact.Contact;
 import jp.kukv.order_api.domain.model.user.contact.address.Address;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CreateOrderScenario {
-
-  Logger log = LoggerFactory.getLogger(CreateOrderScenario.class);
 
   CreateOrderService createOrderService;
   ShippingAddressRegisterService shippingAddressRegisterService;
@@ -36,9 +32,6 @@ public class CreateOrderScenario {
     Product product = productService.get(orderItem.productId());
 
     Id orderId = createOrderService.create(userId);
-
-    log.info("User {}", user.toString());
-    log.info("Product {}", product.toString());
 
     Contact contact = user.contact();
     Address address = contact.address();
