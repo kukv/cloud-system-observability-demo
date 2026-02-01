@@ -9,8 +9,7 @@ x-app-env: &app-env
   DATASOURCE_USERNAME: "${DB_USER}"
   DATASOURCE_PASSWORD: "${DB_PASSWORD}"
   OTEL_EXPORTER_OTLP_ENDPOINT: "http://${OTEL_EXPORTER_HOST}:${OTEL_EXPORTER_PORT}"
-  OTEL_EXPORTER_OTLP_ENVIRONMENT: "docker"
-  OTEL_EXPORTER_OTLP_SERVICE_NAMESPACE: "observability-demo"
+  DEPLOYMENT_ENVIRONMENT: "docker"
 
 x-app-healthcheck: &app-healthcheck
   test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health/readiness"]
