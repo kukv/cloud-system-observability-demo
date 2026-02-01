@@ -17,17 +17,27 @@ logging:
       kukv: "debug"
 
 management:
+  endpoints:
+    access:
+      default: "read_only"
+    web:
+      exposure:
+        include: "*"
   otlp:
-    tracing:
-      endpoint: "http://localhost:4318/v1/traces"
     metrics:
-      endpoint: "http://localhost:4318/v1/metrics"
-    logs:
-      endpoint: "http://localhost:4318/v1/logs"
-otel:
-  exporter:
-    otlp:
-      endpoint: "http://localhost:4318"
+      export:
+        url: "http://localhost:4318/v1/metrics"
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: "http://localhost:4318/v1/traces"
+    logging:
+      export:
+        otlp:
+          endpoint: "http://localhost:4318/v1/logs"
+    resource-attributes:
+      deployment.environment: "local"
 
 springdoc:
   api-docs:

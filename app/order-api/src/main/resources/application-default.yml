@@ -11,6 +11,40 @@ spring:
 server:
   port: 8082
 
+logging:
+  level:
+    jp:
+      kukv: "debug"
+
+management:
+  endpoints:
+    access:
+      default: "read_only"
+    web:
+      exposure:
+        include: "*"
+  otlp:
+    metrics:
+      export:
+        url: "http://localhost:4318/v1/metrics"
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: "http://localhost:4318/v1/traces"
+    logging:
+      export:
+        otlp:
+          endpoint: "http://localhost:4318/v1/logs"
+    resource-attributes:
+      deployment.environment: "local"
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
 external:
   endpoint:
     user-api:
@@ -19,27 +53,3 @@ external:
     product-api:
       domain: "localhost"
       port: "8081"
-
-logging:
-  level:
-    jp:
-      kukv: "debug"
-
-management:
-  otlp:
-    tracing:
-      endpoint: "http://localhost:4318/v1/traces"
-    metrics:
-      endpoint: "http://localhost:4318/v1/metrics"
-    logs:
-      endpoint: "http://localhost:4318/v1/logs"
-otel:
-  exporter:
-    otlp:
-      endpoint: "http://localhost:4318"
-
-springdoc:
-  api-docs:
-    enabled: true
-  swagger-ui:
-    enabled: true
