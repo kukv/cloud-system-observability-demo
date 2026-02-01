@@ -12,7 +12,6 @@ import io.micrometer.core.instrument.binder.system.ProcessorMetrics;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.support.ContextPropagatingTaskDecorator;
 import org.springframework.http.server.observation.OpenTelemetryServerRequestObservationConvention;
 
 /** Step 2.2: Configure OpenTelemetry Semantic Conventions */
@@ -53,8 +52,8 @@ class OpenTelemetryConfiguration {
   }
 
   /** Step 5: Context Propagation for Async Operations */
-  @Bean
-  ContextPropagatingTaskDecorator contextPropagatingTaskDecorator() {
-    return new ContextPropagatingTaskDecorator();
-  }
+  //  @Bean
+  //  ContextPropagatingTaskDecorator contextPropagatingTaskDecorator() {
+  //    return new ContextPropagatingTaskDecorator();
+  //  }
 }
