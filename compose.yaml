@@ -40,10 +40,6 @@ services:
     depends_on:
       postgres:
         condition: "service_healthy"
-      user-api:
-        condition: "service_healthy"
-      product-api:
-        condition: "service_healthy"
       otel-collector:
         condition: "service_started"
 

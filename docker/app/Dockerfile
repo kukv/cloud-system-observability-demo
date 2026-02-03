@@ -28,8 +28,6 @@ FROM eclipse-temurin:25-jre-alpine AS order-api
 
 WORKDIR /app
 
-RUN apk add --no-cache curl
-
 COPY --from=builder /workspace/app/order-api/build/libs/*.jar app.jar
 
 EXPOSE 8080
@@ -40,8 +38,6 @@ FROM eclipse-temurin:25-jre-alpine AS product-api
 
 WORKDIR /app
 
-RUN apk add --no-cache curl
-
 COPY --from=builder /workspace/app/product-api/build/libs/*.jar app.jar
 
 EXPOSE 8080
@@ -51,8 +47,6 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 FROM eclipse-temurin:25-jre-alpine AS user-api
 
 WORKDIR /app
-
-RUN apk add --no-cache curl
 
 COPY --from=builder /workspace/app/user-api/build/libs/*.jar app.jar
 
