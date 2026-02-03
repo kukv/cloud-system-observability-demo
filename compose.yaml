@@ -50,6 +50,8 @@ services:
     networks:
       - "observability-network"
     depends_on:
+      postgres:
+        condition: "service_healthy"
       prometheus:
         condition: "service_started"
       loki:
