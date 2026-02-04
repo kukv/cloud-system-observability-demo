@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: "api-caller"
+  threads:
+    virtual:
+      enabled: true
+
+logging:
+  level:
+    jp:
+      kukv: "info"
+
+external:
+  endpoint:
+    user-api:
+      domain: "${USER_API_DOMAIN}"
+      port: "${USER_API_PORT}"
+    product-api:
+      domain: "${PRODUCT_API_DOMAIN}"
+      port: "${PRODUCT_API_PORT}"
+    order-api:
+      domain: "${ORDERS_API_DOMAIN}"
+      port: "${ORDERS_API_PORT}"

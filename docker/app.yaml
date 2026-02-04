@@ -69,3 +69,21 @@ services:
       - "8082:8080"
     deploy:
       <<: *app-resources
+
+  api-caller:
+    build:
+      <<: *app-context
+      target: "api-caller"
+      cache_from:
+        - "type=local,src=/tmp/.buildx-cache-caller"
+      cache_to:
+        - "type=local,dest=/tmp/.buildx-cache-caller-new,mode=max"
+    environment:
+      USER_API_DOMAIN: "user-api"
+      USER_API_PORT: "8080"
+      PRODUCT_API_DOMAIN: "product-api"
+      PRODUCT_API_PORT: "8080"
+      ORDERS_API_DOMAIN: "order-api"
+      ORDERS_API_PORT: "8080"
+    deploy:
+      <<: *app-resources

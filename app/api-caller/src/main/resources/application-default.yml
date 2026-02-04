@@ -1,0 +1,16 @@
+logging:
+  level:
+    jp:
+      kukv: "debug"
+
+external:
+  endpoint:
+    user-api:
+      domain: "localhost"
+      port: "8081"
+    product-api:
+      domain: "localhost"
+      port: "8083"
+    order-api:
+      domain: "localhost"
+      port: "8082"

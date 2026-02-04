@@ -43,6 +43,20 @@ services:
       otel-collector:
         condition: "service_started"
 
+  api-caller:
+    extends:
+      service: "api-caller"
+      file: "./docker/app.yaml"
+    networks:
+      - "observability-network"
+    depends_on:
+      user-api:
+        condition: "service_started"
+      product-api:
+        condition: "service_started"
+      order-api:
+        condition: "service_started"
+
   otel-collector:
     extends:
       service: "otel-collector"

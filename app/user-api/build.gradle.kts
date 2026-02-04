@@ -49,10 +49,6 @@ spotless {
         target("src/**/*.java")
         googleJavaFormat()
     }
-    kotlinGradle {
-        target("*.gradle.kts")
-        ktlint()
-    }
 }
 
 tasks {

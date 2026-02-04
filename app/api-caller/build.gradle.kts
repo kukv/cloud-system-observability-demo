@@ -1,11 +1,8 @@
-import org.springframework.boot.gradle.plugin.SpringBootPlugin
-
 plugins {
     java
     jacoco
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
-    alias(libs.plugins.springdoc.openapi)
     alias(libs.plugins.jig)
     alias(libs.plugins.spotless)
 }
@@ -14,31 +11,9 @@ group = "jp.kukv"
 version = "0.0.1"
 
 dependencies {
-    implementation(libs.bundles.spring.boot.starter.api)
+    implementation(libs.spring.boot.starter.webmvc)
     implementation(libs.spring.boot.starter.restclient)
-    implementation(libs.bundles.spring.boot.starter.observability)
-    implementation(libs.bundles.spring.boot.starter.mybatis)
-
-    developmentOnly(libs.spring.boot.devtools)
     annotationProcessor(libs.spring.boot.configuration.processor)
-
-    implementation(libs.commons.validator)
-
-    testImplementation(libs.bundles.spring.boot.starter.test)
-}
-
-sourceSets {
-    main {
-        resources {
-            srcDirs("src/main/java", "src/main/resources")
-        }
-    }
-    test {
-        resources {
-            srcDirs("src/test/java")
-            exclude("**/*.java")
-        }
-    }
 }
 
 java {

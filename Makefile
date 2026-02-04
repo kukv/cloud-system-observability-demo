@@ -19,7 +19,7 @@ else
 endif
 
 # キャッシュディレクトリのリスト
-CACHE_DIRS := user order product
+CACHE_DIRS := user order product caller
 
 build:
 	$(SET_BUILDKIT) docker compose build --parallel

@@ -15,3 +15,4 @@ rootProject.name = "cloud-system-observability-demo"
 include(":app:user-api")
 include(":app:product-api")
 include(":app:order-api")
+include(":app:api-caller")

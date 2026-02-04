@@ -1,4 +1,4 @@
-package jp.kukv.order_api.infrastructure._configuration.restclient;
+package jp.kukv.api_caller.infrastructure._configuration.restclient;
 
 import java.io.IOException;
 import org.slf4j.Logger;
