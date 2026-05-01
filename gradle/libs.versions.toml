@@ -37,7 +37,7 @@ commons-validator = { module = "commons-validator:commons-validator", version = 
 #########################################
 # docs generate
 #########################################
-springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version = { strictly = "3.0.1" } }
+springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version = { strictly = "3.0.3" } }
 
 #########################################
 # logging library
