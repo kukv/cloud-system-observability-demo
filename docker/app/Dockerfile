@@ -27,7 +27,7 @@ RUN --mount=type=bind,source=build.gradle.kts,target=/workspace/build.gradle.kts
     --mount=type=cache,target=/workspace/build,sharing=locked \
     gradle build -x test --no-daemon --parallel --max-workers=4 --build-cache --configuration-cache
 
-FROM eclipse-temurin:25-jre-alpine AS order-api
+FROM eclipse-temurin:25.0.2_10-jre-alpine AS order-api
 
 WORKDIR /app
 
@@ -37,7 +37,7 @@ EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
-FROM eclipse-temurin:25-jre-alpine AS product-api
+FROM eclipse-temurin:25.0.2_10-jre-alpine AS product-api
 
 WORKDIR /app
 
@@ -47,7 +47,7 @@ EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
-FROM eclipse-temurin:25-jre-alpine AS user-api
+FROM eclipse-temurin:25.0.2_10-jre-alpine AS user-api
 
 WORKDIR /app
 
@@ -57,7 +57,7 @@ EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
-FROM eclipse-temurin:25-jre-alpine AS api-caller
+FROM eclipse-temurin:25.0.2_10-jre-alpine AS api-caller
 
 WORKDIR /app
 
