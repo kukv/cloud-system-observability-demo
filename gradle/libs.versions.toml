@@ -2,7 +2,7 @@
 java = "25"
 
 [plugins]
-spring-boot = { id = "org.springframework.boot", version = { strictly = "4.0.2" } }
+spring-boot = { id = "org.springframework.boot", version = { strictly = "4.0.6" } }
 spring-dependency-management = { id = "io.spring.dependency-management", version = { strictly = "1.1.7" } }
 springdoc-openapi = { id = "org.springdoc.openapi-gradle-plugin", version = { strictly = "1.9.0" } }
 jig = { id = "org.dddjava.jig-gradle-plugin", version = { strictly = "2025.12.1" } }
