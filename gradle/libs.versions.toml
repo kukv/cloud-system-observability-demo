@@ -32,7 +32,7 @@ postgresql-jdbc = { module = "org.postgresql:postgresql" }
 #########################################
 # validation library
 #########################################
-commons-validator = { module = "commons-validator:commons-validator", version = { strictly = "1.10.1" } }
+commons-validator = { module = "commons-validator:commons-validator", version = { strictly = "1.11.0" } }
 
 #########################################
 # docs generate
