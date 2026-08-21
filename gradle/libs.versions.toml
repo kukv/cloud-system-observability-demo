@@ -42,8 +42,8 @@ springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openap
 #########################################
 # logging library
 #########################################
-logback-access-common = { module = "ch.qos.logback.access:logback-access-common", version = { strictly = "2.0.12" } }
-logback-access-tomcat = { module = "ch.qos.logback.access:logback-access-tomcat", version = { strictly = "2.0.12" } }
+logback-access-common = { module = "ch.qos.logback.access:logback-access-common", version = { strictly = "2.0.15" } }
+logback-access-tomcat = { module = "ch.qos.logback.access:logback-access-tomcat", version = { strictly = "2.0.15" } }
 
 #########################################
 # observability
