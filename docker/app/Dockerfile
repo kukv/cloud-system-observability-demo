@@ -1,4 +1,4 @@
-FROM gradle:9.6.0-jdk25-corretto AS builder
+FROM gradle:9.7.1-jdk25-corretto AS builder
 
 WORKDIR /workspace
 
